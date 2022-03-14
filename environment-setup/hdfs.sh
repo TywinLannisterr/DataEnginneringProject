@@ -1,6 +1,7 @@
 ### Group 17 - group project #
 ### Setup commands for HDFS Single-mode as a solution for data storage
 ### These commands are built upon the default settings of SNIC cloud's ubuntu 20.04 image
+### with out HDFS-namenode IP address in the cloud is 192.168.2.102
 
 # Update package
 sudo apt update
@@ -31,7 +32,7 @@ mkdir -p ~/hadoopdata/hdfs/datanode
 sed '/^<configuration>$/r'<(
     echo "<property>"
     echo "<name>fs.defaultFS</name>"
-    echo "<value>hdfs://localhost:9000</value>"
+    echo "<value>hdfs://192.168.2.102:9000</value>"
     echo "</property>"
 ) -i -- $HADOOP_HOME/etc/hadoop/core-site.xml
 
