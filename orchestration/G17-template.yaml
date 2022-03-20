@@ -215,7 +215,7 @@ hdfs:
       networks: 
         - network: { get_param: network_id }
       name: G17-hdfs
-      flavor: "ssc.medium"
+      flavor: "ssc.small"
       image: { get_param: image_id }
       availability_zone: nova
       key_name: { get_param: key_name }
