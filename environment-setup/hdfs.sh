@@ -1,3 +1,4 @@
+#!/bin/bash
 ### Group 17 - group project #
 ### Setup commands for HDFS Single-mode as a solution for data storage
 ### These commands are built upon the default settings of SNIC cloud's ubuntu 20.04 image
@@ -6,8 +7,9 @@
 # Update package
 sudo apt update
 
+
 # Install java 11
-sudo apt install openjdk-11-jdk
+sudo apt install -y openjdk-11-jdk
 
 #Download Hadoop 3.3.0
 wget https://downloads.apache.org/hadoop/common/hadoop-3.3.0/hadoop-3.3.0.tar.gz 
@@ -15,7 +17,7 @@ tar -xvzf hadoop-3.3.0.tar.gz
 
 #Configure path variables
 echo "export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" >> ~/.bashrc
-echo "export HADOOP_HOME=/home/ubuntu/hadoop-3.3.0" >> ~/.bashrc
+echo "export HADOOP_HOME=/hadoop-3.3.0" >> ~/.bashrc
 echo "export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin" >> ~/.bashrc
 
 source ~/.bashrc
