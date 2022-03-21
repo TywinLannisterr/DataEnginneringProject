@@ -26,6 +26,12 @@ parameters:
     label: Security group
     description: Security group ID for the instance
     default: "c1bb0532-80cd-4192-a0a1-e0f9454aba4a" #default security group
+  
+  worker_flavor:
+    type: string
+    label: Worker flavor
+    description: Flavor (Computing resources) of worker instance
+    default: "ssc.medium.highmem" #default security group
 
 #Instance specification
 
@@ -82,10 +88,10 @@ resources:
       networks: 
         - network: { get_param: network_id }
       name: G17-spark-worker-1
-      flavor: "ssc.medium.highmem"
+      flavor: { get_param: key_name }
       image: { get_param: image_id }
       availability_zone: nova
-      key_name: { get_param: key_name }
+      key_name: { get_param: worker_flavor }
       user_data_format: RAW
       user_data:
         str_replace:
@@ -126,7 +132,7 @@ resources:
       networks: 
         - network: { get_param: network_id }
       name: G17-spark-worker-2
-      flavor: "ssc.medium.highmem"
+      flavor: { get_param: worker_flavor }
       image: { get_param: image_id }
       availability_zone: nova
       key_name: { get_param: key_name }
@@ -171,7 +177,7 @@ resources:
       networks: 
         - network: { get_param: network_id }
       name: G17-spark-worker-3
-      flavor: "ssc.medium.highmem"
+      flavor: { get_param: worker_flavor }
       image: { get_param: image_id }
       availability_zone: nova
       key_name: { get_param: key_name }
