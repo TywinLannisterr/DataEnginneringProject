@@ -5,31 +5,26 @@
 ## update all packages to latest
 sudo apt update
 
-## add hostname master to hostname file
-echo "master' >> ~/hostname
-## add the ip address of master and worker to the hosts file
-echo "master  master's ip address" >> /etc/hosts
-echo "worker1  worker1's ip  address" >> /etc/hosts
 # install necessary software and packages
-sudo apt-get install software-properties-common
+sudo apt install software-properties-common
 sudo add-apt-repository ppa:webupd8team/java
-sudo apt-get update
-sudo apt-get install openjdk-11-jdk
-sudo apt-get install scala
-sudo apt-get install openssh-server openssh-client
+sudo apt install openjdk-11-jdk
+sudo apt install scala
+sudo apt install openssh-server openssh-client
 ## generate ssh key for the master you should add the public key to authorized_keys in workers
 ssh-keygen -t rsa -P ""
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 # install spark 
 wget https://archive.apache.org/dist/spark/spark-3.0.3/spark-3.0.3-bin-hadoop2.7.tgz
-tar xvf spark-3.0.3-bind-hadoop2.7.tgz
+tar xvf spark-3.0.3-bin-hadoop2.7.tgz
 sudo mv spark-3.0.3-bin-hadoop2.7 /usr/local/spark
 
-# add #JAVA-HOME# to bashrc 
+# add #JAVA-HOME# to bashrc
+echo "export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" >> ~/.bashrc
+echo "export SPARK_HOME=/usr/local/spark" >> ~/.bashrc
 source ~/.bashrc
-cp /usr/local/spark/conf/spark-env.sh.template /usr/local/spark/conf/spark-env.sh 
-# set the parameters for spark
-echo "export SPARK_MASTER_HOST='<MASTER-IP>'export JAVA_HOME=<Path_of_JAVA_installation>" >> /usr/local/spark/conf/spark-env.sh
-echo "master" >> /usr/local/spark/conf/slaves
-echo "worker1" >> /usr/local/spark/conf/slaves
-/usr/local/spark./sbin/start-all.sh
+cp $SPARK_HOME/conf/spark-env.sh.template $SPARK_HOME/conf/spark-env.sh 
+# set the parameters for spark. Replace 192.168.2.102 with the IP address of Spark master
+echo "export SPARK_MASTER_HOST='192.168.2.102'" >> $SPARK_HOME/conf/spark-env.sh
+echo "export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" >> $SPARK_HOME/conf/spark-env.sh
+$SPARK_HOME/sbin/start-master.sh
