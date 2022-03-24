@@ -7,5 +7,5 @@ To reproduce the result of the analysis you can follow the steps as described in
 # Orchestration 
 The HOT template configuration used for deployment in SNIC.
 # Countributers 
-	.TywinLannisterr
-	.duchuyle108
+TywinLannisterr: Arya Farhang
+duchuyle108: Duc Huy Le
